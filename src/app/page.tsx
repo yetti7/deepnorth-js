@@ -38,7 +38,7 @@ export default function Home() {
         <a href="https://sab.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-gray-500/50 hover:scale-105 transition-all duration-300">
           <SabnzbIcon className="w-16 h-16 text-white" />
         </a>
-        <a href="https://tautilli.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-gray-500/50 hover:scale-105 transition-all duration-300">
+        <a href="https://tautulli.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-gray-500/50 hover:scale-105 transition-all duration-300">
           <Image src={TautulliIcon} alt="Tautulli" width={64} height={64} />
         </a>
         <a href="https://syncthing.net" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-gray-500/50 hover:scale-105 transition-all duration-300">
