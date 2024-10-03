@@ -12,15 +12,15 @@ import SyncthingIcon from '@/assets/icons/Syncthing.svg';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-[your-bg-color-or-image] text-gray-300 pt-12">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-[your-bg-color-or-image] text-gray-300 pt-4">
       {/* Clickable Yeti Logo */}
       <Link href="https://deepnorth.app">
         <Image 
           src="/logos/Transparent_Yetti_Dark.png" 
-          alt="Legendary Yeti" 
+          alt="Legendary Yeti"
           width={400} 
           height={400} 
-          className="mb-8" 
+          className="mb-8"
         />
       </Link>
 

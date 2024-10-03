@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import NavBar from "../components/NavBar"; // Import the NavBar component
+import NavBar from "../components/NavBar";
 import "./globals.css";
 
 // Define custom local fonts
@@ -15,10 +15,12 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-// Metadata for SEO
 export const metadata: Metadata = {
   title: "Deepnorth",
   description: "App Hub",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -28,11 +30,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload the custom RichTheBarber font */}
+        <link
+          rel="preload"
+          href="/fonts/RichTheBarber.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <title>Deepnorth</title>
+        <meta name="description" content="App Hub" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar />  {/* Add the NavBar component here */}
-        {children}  {/* This will render the content of each page */}
+        <NavBar />
+        {children}
       </body>
     </html>
   );
