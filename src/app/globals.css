@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'RichTheBarber';
+  src: url('/fonts/RichTheBarber.ttf') format('truetype'); /* Font from the public folder */
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -17,7 +24,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'RichTheBarber', Arial, Helvetica, sans-serif; /* Use the RichTheBarber font globally */
 }
 
 @layer utilities {

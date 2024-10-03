@@ -12,8 +12,12 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        rich: ['RichTheBarber', 'Arial', 'Helvetica', 'sans-serif'], /* RichTheBarber font in Tailwind */
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
