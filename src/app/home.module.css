@@ -1,23 +1,47 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 70vh; /* Reducing the height slightly to push content up */
-    text-align: center;
-    margin-top: -50px; /* Negative margin to move content further up */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Allow the height to adjust based on content */
+  text-align: center;
+  margin-top: -20px; /* Adjust this value if needed */
+}
+
+.logoContainer {
+  margin-bottom: 20px;
+}
+
+.logoContainer img {
+  max-width: 90%; /* Ensure it scales down on smaller screens */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.textContainer h1 {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.textContainer p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Media query for landscape orientation */
+@media (orientation: landscape) {
+  .container {
+      margin-top: 0; /* Reset margin in landscape */
   }
-  
+
   .logoContainer {
-    margin-bottom: 20px;
+      margin-bottom: 10px; /* Adjust as necessary */
   }
-  
+
   .textContainer h1 {
-    font-size: 2rem;
-    margin: 10px 0;
+      font-size: 1.8rem; /* Scale down text for better fit */
   }
-  
+
   .textContainer p {
-    font-size: 1.2rem;
-    color: #666;
+      font-size: 1rem; /* Scale down text for better fit */
   }
+}
