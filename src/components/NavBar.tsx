@@ -12,13 +12,13 @@ const NavBar = () => {
       {/* Boxed navigation items on the left */}
       <ul className={styles.navLinks}>
         <li className={styles.navItem}>
-          <Link href="/about" className={styles.navLink}>
-            About
+          <Link href="/" className={styles.navLink}>
+            Home
           </Link>
         </li>
         <li className={styles.navItem}>
-          <Link href="/contact" className={styles.navLink}>
-            Contact
+          <Link href="/apps" className={styles.navLink}>
+            Apps
           </Link>
         </li>
       </ul>

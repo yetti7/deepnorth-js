@@ -1,24 +1,22 @@
-/* NavBar.module.css */
 .navBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 10px; /* Reduced padding for a thinner navbar */
+  padding: 2px 10px; /* Further reduce vertical and horizontal padding */
   background-color: #333;
 }
 
 .logo {
-  font-size: 40px; /* Large logo font size */
+  font-size: 36px; /* Reduce the font size for a smaller logo */
   color: #fff;
   text-decoration: none;
-  font-weight: normal;
   font-family: 'RichTheBarber', Arial, Helvetica, sans-serif;
 }
 
 .navLinks {
   list-style: none;
   display: flex;
-  gap: 15px; /* Increased gap between navigation items */
+  gap: 10px; /* Reduce the gap between navigation items */
 }
 
 .navItem {
@@ -26,24 +24,23 @@
 }
 
 .navLink {
-  display: block;
-  padding: 0px 8px; /* Remove vertical padding to reduce space above/below the text */
+  padding: 2px 8px; /* Minimize padding for more compact links */
   background-color: #444;
   color: #fff;
   text-decoration: none;
   border: 2px solid transparent;
   transition: all 0.3s ease;
   border-radius: 5px;
-  font-size: 24px; /* Larger font size for better readability */
+  font-size: 30px; /* Reduce font size for the navigation links */
   font-family: 'RichTheBarber', Arial, Helvetica, sans-serif;
-  line-height: 1; /* Set line-height to 1 to minimize space around the text */
+  line-height: 1;
 }
 
 .navLink:hover {
-  background-color: #555; /* Change background color on hover */
-  color: #ffcc00; /* Change text color on hover */
+  background-color: #555;
+  color: #ffcc00;
   border: 2px solid #888;
   transform: scale(1.05);
   cursor: pointer;
-  box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.6); /* Add a yellow shadow on hover */
+  box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.6);
 }

@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh; /* Reducing the height slightly to push content up */
+    text-align: center;
+    margin-top: -50px; /* Negative margin to move content further up */
+  }
+  
+  .logoContainer {
+    margin-bottom: 20px;
+  }
+  
+  .textContainer h1 {
+    font-size: 2rem;
+    margin: 10px 0;
+  }
+  
+  .textContainer p {
+    font-size: 1.2rem;
+    color: #666;
+  }
