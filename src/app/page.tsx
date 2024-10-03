@@ -8,11 +8,14 @@ import ReadarrIcon from '@/assets/icons/Readarr.png';
 import SabnzbIcon from '@/assets/icons/SABnzb.svg';
 import TautulliIcon from '@/assets/icons/Tautulli.png';
 import SyncthingIcon from '@/assets/icons/Syncthing.svg';
+import YetiLogo from '@/assets/logos/Transparent_Yetti_Dark.png'; // Import your Yeti logo
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-gray-300">
-      <h1 className="text-4xl font-bold mb-8 text-gray-100">Deep North</h1>
+      {/* Add Yeti Logo in the center of the screen */}
+      <Image src={YetiLogo} alt="Legendary Yeti" width={300} height={300} className="mb-8" />
+      
       <div className="grid grid-cols-3 gap-8">
         {/* Top Row */}
         <a href="https://abs.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-gray-500/50 hover:scale-105 transition-all duration-300">
