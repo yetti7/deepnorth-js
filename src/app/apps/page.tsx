@@ -16,7 +16,7 @@ export default function Home() {
       {/* Clickable Yeti Logo */}
       <Link href="https://deepnorth.app">
         <Image 
-          src="/logos/Transparent_Yetti_Dark.png" 
+          src="/logos/Transparent_Yetti_Dark.webp" 
           alt="Legendary Yeti"
           width={400} 
           height={400} 

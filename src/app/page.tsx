@@ -7,7 +7,7 @@ export default function Home() {
       <div className={styles.logoContainer}>
         <a href="https://deepnorth.app">
           <Image 
-            src="/logos/Transparent_Yetti_Dark.png" 
+            src="/logos/Transparent_Yetti_Dark.webp" 
             alt="Yeti Logo"
             width={600} 
             height={600}
