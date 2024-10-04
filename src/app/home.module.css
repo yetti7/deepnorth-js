@@ -1,11 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: auto; /* Allow the height to adjust based on content */
-  text-align: center;
-  margin-top: -20px; /* Adjust this value if needed */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  height: auto; /* Allow height to adjust based on content */
+  text-align: center; /* Center text */
+  margin-top: 0; /* Removed negative margin */
 }
 
 .logoContainer {
@@ -13,8 +13,14 @@
 }
 
 .logoContainer img {
-  max-width: 90%; /* Ensure it scales down on smaller screens */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 90%; 
+  height: auto;
+  margin-left: 23px;  
+}
+
+.textContainer {
+  text-align: center; /* Ensure text is centered */
+  margin: 0; /* Center align the text container */
 }
 
 .textContainer h1 {
@@ -27,21 +33,20 @@
   color: #666;
 }
 
-/* Media query for landscape orientation */
 @media (orientation: landscape) {
   .container {
-      margin-top: 0; /* Reset margin in landscape */
+      margin-top: 0; /* Ensure no margin in landscape */
   }
 
   .logoContainer {
-      margin-bottom: 10px; /* Adjust as necessary */
+      margin-bottom: 10px; 
   }
 
   .textContainer h1 {
-      font-size: 1.8rem; /* Scale down text for better fit */
+      font-size: 1.8rem; 
   }
 
   .textContainer p {
-      font-size: 1rem; /* Scale down text for better fit */
+      font-size: 1rem; 
   }
 }
