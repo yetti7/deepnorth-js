@@ -1,27 +1,32 @@
-import Link from "next/link";
-import styles from "./NavBar.module.css";  // Import styles from a CSS module
+"use client"; // This makes the component a Client Component
+
+import { useState } from 'react';
+import Link from 'next/link';
+import styles from './NavBar.module.css';
 
 const NavBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <nav className={styles.navBar}>
-      {/* "Deep North" logo on the left, linking to the landing page */}
-      <Link href="https://deepnorth.app" className={styles.logo}>
+      <Link href="/home" className={styles.logo}>
         Deep North
       </Link>
-
-      {/* Boxed navigation items on the left */}
-      <ul className={styles.navLinks}>
-        <li className={styles.navItem}>
-          <Link href="/" className={styles.navLink}>
-            Home
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link href="/apps" className={styles.navLink}>
-            Apps
-          </Link>
-        </li>
-      </ul>
+      <div className={`${styles.navLinks} ${isOpen ? styles.open : ''}`}>
+        <Link href="/home" className={styles.navLink}>
+          Home
+        </Link>
+        <Link href="/apps" className={styles.navLink}>
+          Apps
+        </Link>
+      </div>
+      <div className={styles.hamburger} onClick={toggleMenu}>
+        &#9776; {/* Hamburger Icon */}
+      </div>
     </nav>
   );
 };

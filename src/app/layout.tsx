@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import NavBar from "../components/NavBar";
-import "./globals.css";
+import NavBar from '../components/NavBar';
+import './globals.css'; // Assuming global styles are being used
+import localFont from 'next/font/local'; // Importing custom fonts
+import { Metadata } from 'next'; // Importing the Metadata type
 
 // Define custom local fonts
 const geistSans = localFont({

@@ -1,3 +1,4 @@
+/* Default (Desktop) Styles */
 .navBar {
   display: flex;
   justify-content: space-between;
@@ -7,7 +8,7 @@
 }
 
 .logo {
-  font-size: 36px; /* Reduce the font size for a smaller logo */
+  font-size: 36px;
   color: #fff;
   text-decoration: none;
   font-family: 'RichTheBarber', Arial, Helvetica, sans-serif;
@@ -19,19 +20,15 @@
   gap: 10px; /* Reduce the gap between navigation items */
 }
 
-.navItem {
-  position: relative;
-}
-
 .navLink {
-  padding: 2px 8px; /* Minimize padding for more compact links */
+  padding: 2px 8px;
   background-color: #444;
   color: #fff;
   text-decoration: none;
   border: 2px solid transparent;
   transition: all 0.3s ease;
   border-radius: 5px;
-  font-size: 30px; /* Reduce font size for the navigation links */
+  font-size: 30px;
   font-family: 'RichTheBarber', Arial, Helvetica, sans-serif;
   line-height: 1;
 }
@@ -43,4 +40,39 @@
   transform: scale(1.05);
   cursor: pointer;
   box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.6);
+}
+
+/* Mobile Styles */
+.hamburger {
+  display: none;
+  font-size: 36px;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 10;
+  }
+
+  .navLinks.open {
+    display: flex;
+  }
+
+  .navLink {
+    padding: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
