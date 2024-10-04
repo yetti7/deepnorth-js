@@ -1,4 +1,4 @@
-"use client"; // This makes the component a Client Component
+"use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -13,19 +13,24 @@ const NavBar = () => {
 
   return (
     <nav className={styles.navBar}>
-      <Link href="/home" className={styles.logo}>
+      <Link href="/" className={styles.logo}>
         Deep North
       </Link>
       <div className={`${styles.navLinks} ${isOpen ? styles.open : ''}`}>
-        <Link href="/home" className={styles.navLink}>
+        <Link href="/" className={styles.navLink}>
           Home
         </Link>
         <Link href="/apps" className={styles.navLink}>
           Apps
         </Link>
       </div>
-      <div className={styles.hamburger} onClick={toggleMenu}>
-        &#9776; {/* Hamburger Icon */}
+      <div
+        className={`${styles.hamburger} ${isOpen ? styles.openHamburger : ''}`}
+        onClick={toggleMenu}
+      >
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </nav>
   );
