@@ -1,61 +1,77 @@
+// src/app/apps/page.tsx
+
 import Image from 'next/image';
 import Link from 'next/link';
 import AudiobookshelfIcon from '@/assets/icons/Audiobookshelf.svg';
-import PlexIcon from '@/assets/icons/Plex.svg';
+import PlexIcon from '@/assets/icons/Plex.svg'; // Ensure this is imported
 import DiscordIcon from '@/assets/icons/Discord.svg';
 import SonarrIcon from '@/assets/icons/Sonarr.png';
 import RadarrIcon from '@/assets/icons/Radarr.png';
 import ReadarrIcon from '@/assets/icons/Readarr.png';
 import SabnzbIcon from '@/assets/icons/SABnzb.svg';
 import TautulliIcon from '@/assets/icons/Tautulli.png';
-import SyncthingIcon from '@/assets/icons/Syncthing.svg';
+import React from 'react';
+import AppLink from '@/app/components/AppLink'; // Adjust the path if needed
 
-export default function Home() {
+const AppsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-[your-bg-color-or-image] text-gray-300 pt-4">
-      {/* Clickable Yeti Logo */}
-      <Link href="https://deepnorth.app">
-        <Image 
-          src="/logos/Transparent_Yetti_Dark.webp" 
-          alt="Legendary Yeti"
-          width={400} 
-          height={400} 
-          className="mb-8"
+    <div>
+      <h1>Apps</h1>
+      <div>
+        {/* Updated Plex Section */}
+        <AppLink 
+          icon={PlexIcon} 
+          name="Open Plex" 
+          appUrl="plex://" 
+          storeUrl="https://apps.apple.com/app/id324789451" 
         />
-      </Link>
 
-      <div className="grid grid-cols-3 gap-8">
-        {/* Top Row */}
-        <a href="https://abs.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <AudiobookshelfIcon className="w-16 h-16 text-white" />
-        </a>
-        <a href="https://app.plex.tv" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <PlexIcon className="w-16 h-16 text-white" />
-        </a>
-        <a href="https://discord.gg/dXwYnad" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <DiscordIcon className="w-16 h-16 text-white" />
-        </a>
-        {/* Middle Row */}
-        <a href="https://sonarr.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <Image src={SonarrIcon} alt="Sonarr" width={64} height={64} />
-        </a>
-        <a href="https://radarr.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <Image src={RadarrIcon} alt="Radarr" width={64} height={64} />
-        </a>
-        <a href="https://readarr.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <Image src={ReadarrIcon} alt="Readarr" width={64} height={64} />
-        </a>
-        {/* Bottom Row */}
-        <a href="https://sab.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <SabnzbIcon className="w-16 h-16 text-white" />
-        </a>
-        <a href="https://tautulli.deepnorth.app" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <Image src={TautulliIcon} alt="Tautulli" width={64} height={64} />
-        </a>
-        <a href="https://syncthing.net" target="_blank" rel="noopener noreferrer" className="bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-lg hover:shadow-[0_4px_10px_rgba(255,204,0,0.6)] hover:scale-105 transition-all duration-300">
-          <SyncthingIcon className="w-16 h-16 text-white" />
-        </a>
+        {/* Other app links/icons */}
+        <div>
+          <Link href="https://audiobookshelf.com" passHref>
+            <Image src={AudiobookshelfIcon} alt="Audiobookshelf" width={40} height={40} />
+            <span>Audiobookshelf</span>
+          </Link>
+        </div>
+        <div>
+          <Link href="https://discord.com" passHref>
+            <Image src={DiscordIcon} alt="Discord" width={40} height={40} />
+            <span>Discord</span>
+          </Link>
+        </div>
+        <div>
+          <Link href="https://sonarr.tv" passHref>
+            <Image src={SonarrIcon} alt="Sonarr" width={40} height={40} />
+            <span>Sonarr</span>
+          </Link>
+        </div>
+        <div>
+          <Link href="https://radarr.video" passHref>
+            <Image src={RadarrIcon} alt="Radarr" width={40} height={40} />
+            <span>Radarr</span>
+          </Link>
+        </div>
+        <div>
+          <Link href="https://readarr.com" passHref>
+            <Image src={ReadarrIcon} alt="Readarr" width={40} height={40} />
+            <span>Readarr</span>
+          </Link>
+        </div>
+        <div>
+          <Link href="https://sabnzbd.org" passHref>
+            <Image src={SabnzbIcon} alt="SABnzb" width={40} height={40} />
+            <span>SABnzb</span>
+          </Link>
+        </div>
+        <div>
+          <Link href="https://tautulli.com" passHref>
+            <Image src={TautulliIcon} alt="Tautulli" width={40} height={40} />
+            <span>Tautulli</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default AppsPage;
