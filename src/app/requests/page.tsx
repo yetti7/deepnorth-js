@@ -1,4 +1,3 @@
-// src/app/requests/page.tsx
 'use client';
 
 import { useState } from "react";
@@ -77,7 +76,7 @@ export default function RequestsPage() {
             id="name"
             name="name"
             required
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md"
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
           />
         </div>
 
@@ -148,7 +147,7 @@ export default function RequestsPage() {
             id="title"
             name="title"
             required
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md"
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
           />
         </div>
 
@@ -163,7 +162,7 @@ export default function RequestsPage() {
               id="author"
               name="author"
               required
-              className="w-full mt-2 p-2 border border-gray-300 rounded-md"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
             />
           </div>
         )}
@@ -180,7 +179,7 @@ export default function RequestsPage() {
             value={mediaLink}
             onChange={(e) => setMediaLink(e.target.value)}
             required
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md"
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
           />
         </div>
 
