@@ -16,7 +16,6 @@ export default function Home() {
       </div>
       <div className={styles.textContainer}>
         <h1>Welcome to Deep North</h1>
-        <p>Your journey starts here</p>
       </div>
     </div>
   );

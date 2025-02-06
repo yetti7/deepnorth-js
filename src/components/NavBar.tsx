@@ -23,6 +23,9 @@ const NavBar = () => {
         <Link href="/apps" className={styles.navLink}>
           Apps
         </Link>
+        <Link href="/requests" className={styles.navLink}>
+          Requests
+        </Link>
       </div>
       <div
         className={`${styles.hamburger} ${isOpen ? styles.openHamburger : ''}`}
