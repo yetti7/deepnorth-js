@@ -7,11 +7,49 @@ export default function RequestsPage() {
   const [selectedMedia, setSelectedMedia] = useState<string>("");
   const [mediaLink, setMediaLink] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
+  const [status, setStatus] = useState<string>("");
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    setStatus("Sending...");
+
+    const formData = new FormData(event.target as HTMLFormElement);
+
+    // Collect form data
+    const data = {
+      name: formData.get("name"),
+      media: selectedMedia,
+      title: formData.get("title"),
+      author: formData.get("author"),
+      mediaLink,
+      image: image ? image.name : "",
+    };
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setStatus("Request submitted successfully!");
+      } else {
+        setStatus("Failed to submit request.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("Failed to submit request.");
     }
   };
 
@@ -28,13 +66,10 @@ export default function RequestsPage() {
         </a>
       </p>
 
-      <form className="mt-6 w-full max-w-lg space-y-4">
+      <form onSubmit={handleSubmit} className="mt-6 w-full max-w-lg space-y-4">
         {/* Your Name Field */}
         <div>
-          <label
-            htmlFor="name"
-            className="block text-lg font-semibold"
-          >
+          <label htmlFor="name" className="block text-lg font-semibold">
             Your Name (Required)
           </label>
           <input
@@ -49,8 +84,6 @@ export default function RequestsPage() {
         {/* Media Selection */}
         <div>
           <label className="block text-lg font-semibold">Select Media Type (Required)</label>
-          
-          {/* Grid Layout for Media Selection */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 mt-2">
             {/* eBook */}
             <div className="flex items-center">
@@ -107,10 +140,7 @@ export default function RequestsPage() {
 
         {/* Title Field */}
         <div>
-          <label
-            htmlFor="title"
-            className="block text-lg font-semibold"
-          >
+          <label htmlFor="title" className="block text-lg font-semibold">
             Title (Required)
           </label>
           <input
@@ -125,10 +155,7 @@ export default function RequestsPage() {
         {/* Author Field (Conditional) */}
         {(selectedMedia === "ebook" || selectedMedia === "audiobook") && (
           <div>
-            <label
-              htmlFor="author"
-              className="block text-lg font-semibold"
-            >
+            <label htmlFor="author" className="block text-lg font-semibold">
               Author (Required)
             </label>
             <input
@@ -143,10 +170,7 @@ export default function RequestsPage() {
 
         {/* Link to Media */}
         <div>
-          <label
-            htmlFor="mediaLink"
-            className="block text-lg font-semibold"
-          >
+          <label htmlFor="mediaLink" className="block text-lg font-semibold">
             Link to Media (Required)
           </label>
           <input
@@ -162,11 +186,8 @@ export default function RequestsPage() {
 
         {/* Image Upload */}
         <div>
-          <label
-            htmlFor="screenshot"
-            className="block text-lg font-semibold"
-          >
-            Upload Screenshot or Image (Required)
+          <label htmlFor="screenshot" className="block text-lg font-semibold">
+            Upload Screenshot or Image (Optional)
           </label>
           <input
             type="file"
@@ -174,7 +195,6 @@ export default function RequestsPage() {
             name="screenshot"
             accept="image/*"
             onChange={handleImageUpload}
-            required
             className="w-full mt-2 p-2 border border-gray-300 rounded-md"
           />
           {image && (
@@ -194,6 +214,8 @@ export default function RequestsPage() {
           </button>
         </div>
       </form>
+
+      {status && <p className="mt-4 text-lg">{status}</p>}
     </main>
   );
 }
