@@ -1,3 +1,7 @@
+// app/api/send-email/route.js
+
+export const runtime = 'edge'; // Specify that this route uses Edge runtime
+
 import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
