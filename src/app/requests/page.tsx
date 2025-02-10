@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Import for navigation
 
 export default function RequestsPage() {
+  const router = useRouter();
   const [selectedMedia, setSelectedMedia] = useState<string>("");
   const [mediaLink, setMediaLink] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
@@ -17,12 +19,10 @@ export default function RequestsPage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     setStatus("Sending...");
 
     const formData = new FormData(event.target as HTMLFormElement);
 
-    // Collect form data
     const data = {
       name: formData.get("name"),
       media: selectedMedia,
@@ -35,17 +35,11 @@ export default function RequestsPage() {
     try {
       const response = await fetch("/api/send-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        setStatus("Request submitted successfully!");
-      } else {
-        setStatus("Failed to submit request.");
-      }
+      setStatus(response.ok ? "Request submitted successfully!" : "Failed to submit request.");
     } catch (error) {
       console.error("Error:", error);
       setStatus("Failed to submit request.");
@@ -57,16 +51,21 @@ export default function RequestsPage() {
       <h1 className="text-4xl font-bold">Requests</h1>
       <p className="text-lg mt-4">
         Fill out the form below or submit your requests directly to{" "}
-        <a
-          href="mailto:request@deepnorth.app"
-          className="text-blue-400 hover:underline"
-        >
-          request@deepnorth.app
+        <a href="mailto:requests@deepnorth.app" className="text-blue-400 hover:underline">
+          requests@deepnorth.app
         </a>
       </p>
 
+      {/* View Current Requests Button */}
+      <button
+        onClick={() => router.push("/requests/view")}
+        className="mt-6 px-6 py-2 text-lg bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+      >
+        View Current Requests
+      </button>
+
       <form onSubmit={handleSubmit} className="mt-6 w-full max-w-lg space-y-4">
-        {/* Your Name Field */}
+        {/* Name Field */}
         <div>
           <label htmlFor="name" className="block text-lg font-semibold">
             Your Name (Required)
@@ -76,7 +75,7 @@ export default function RequestsPage() {
             id="name"
             name="name"
             required
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans"
           />
         </div>
 
@@ -84,94 +83,52 @@ export default function RequestsPage() {
         <div>
           <label className="block text-lg font-semibold">Select Media Type (Required)</label>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 mt-2">
-            {/* eBook */}
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id="ebook"
-                name="media"
-                value="ebook"
-                onChange={(e) => setSelectedMedia(e.target.value)}
-                className="mr-2"
-                required
-              />
-              <label htmlFor="ebook" className="text-lg">eBook</label>
-            </div>
-            {/* TV */}
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id="tv"
-                name="media"
-                value="tv"
-                onChange={(e) => setSelectedMedia(e.target.value)}
-                className="mr-2"
-              />
-              <label htmlFor="tv" className="text-lg">TV</label>
-            </div>
-            {/* Audiobook */}
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id="audiobook"
-                name="media"
-                value="audiobook"
-                onChange={(e) => setSelectedMedia(e.target.value)}
-                className="mr-2"
-                required
-              />
-              <label htmlFor="audiobook" className="text-lg">Audiobook</label>
-            </div>
-            {/* Movie */}
-            <div className="flex items-center">
-              <input
-                type="radio"
-                id="movie"
-                name="media"
-                value="movie"
-                onChange={(e) => setSelectedMedia(e.target.value)}
-                className="mr-2"
-              />
-              <label htmlFor="movie" className="text-lg">Movie</label>
-            </div>
+            {["ebook", "tv", "audiobook", "movie"].map((type) => (
+              <div key={type} className="flex items-center">
+                <input
+                  type="radio"
+                  id={type}
+                  name="media"
+                  value={type}
+                  onChange={(e) => setSelectedMedia(e.target.value)}
+                  className="mr-2"
+                  required
+                />
+                <label htmlFor={type} className="text-lg capitalize">{type}</label>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Title Field */}
         <div>
-          <label htmlFor="title" className="block text-lg font-semibold">
-            Title (Required)
-          </label>
+          <label htmlFor="title" className="block text-lg font-semibold">Title (Required)</label>
           <input
             type="text"
             id="title"
             name="title"
             required
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans"
           />
         </div>
 
         {/* Author Field (Conditional) */}
         {(selectedMedia === "ebook" || selectedMedia === "audiobook") && (
           <div>
-            <label htmlFor="author" className="block text-lg font-semibold">
-              Author (Required)
-            </label>
+            <label htmlFor="author" className="block text-lg font-semibold">Author (Required)</label>
             <input
               type="text"
               id="author"
               name="author"
               required
-              className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans"
             />
           </div>
         )}
 
         {/* Link to Media */}
         <div>
-          <label htmlFor="mediaLink" className="block text-lg font-semibold">
-            Link to Media (Required)
-          </label>
+          <label htmlFor="mediaLink" className="block text-lg font-semibold">Link to Media (Required)</label>
           <input
             type="url"
             id="mediaLink"
@@ -179,15 +136,13 @@ export default function RequestsPage() {
             value={mediaLink}
             onChange={(e) => setMediaLink(e.target.value)}
             required
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans" // Added font-sans here
+            className="w-full mt-2 p-2 border border-gray-300 rounded-md text-gray-800 font-sans"
           />
         </div>
 
         {/* Image Upload */}
         <div>
-          <label htmlFor="screenshot" className="block text-lg font-semibold">
-            Upload Screenshot or Image (Optional)
-          </label>
+          <label htmlFor="screenshot" className="block text-lg font-semibold">Upload Screenshot or Image (Optional)</label>
           <input
             type="file"
             id="screenshot"
