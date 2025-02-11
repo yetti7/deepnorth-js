@@ -11,7 +11,6 @@ interface Request {
   title: string;
   author?: string | null;
   mediaLink: string;
-  image?: string;
 }
 
 export default function RequestsManagePage() {
@@ -19,9 +18,11 @@ export default function RequestsManagePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [openRequests, setOpenRequests] = useState<Request[]>([]);
   const [closedRequests, setClosedRequests] = useState<Request[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
+
+  const API_BASE_URL = "https://api.deepnorth.app/api"; // ✅ Centralized API base URL
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,19 +36,16 @@ export default function RequestsManagePage() {
   const fetchRequests = async () => {
     try {
       const [openRes, closedRes] = await Promise.all([
-        fetch("https://api.deepnorth.app/api/requests"),
-        fetch("https://api.deepnorth.app/api/closed-requests"),
+        fetch(`${API_BASE_URL}/requests`),
+        fetch(`${API_BASE_URL}/closed-requests`),
       ]);
 
       if (!openRes.ok || !closedRes.ok) {
         throw new Error("Failed to fetch requests.");
       }
 
-      const openData = await openRes.json();
-      const closedData = await closedRes.json();
-
-      setOpenRequests(openData);
-      setClosedRequests(closedData);
+      setOpenRequests(await openRes.json());
+      setClosedRequests(await closedRes.json());
     } catch (err) {
       console.error("Error fetching requests:", err);
       setError("Failed to load requests.");
@@ -57,26 +55,39 @@ export default function RequestsManagePage() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchRequests();
-    }
+    if (isAuthenticated) fetchRequests();
   }, [isAuthenticated]);
 
   const markAsCompleted = async (id: number) => {
-    await fetch(`http://localhost:3001/api/requests/${id}`, { method: "DELETE" });
-    fetchRequests();
+    try {
+      const response = await fetch(`${API_BASE_URL}/requests/${id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Failed to mark request as completed.");
+      fetchRequests();
+    } catch (error) {
+      console.error("Error marking request as completed:", error);
+    }
   };
 
   const reopenRequest = async (id: number) => {
-    await fetch(`http://localhost:3001/api/reopen-request/${id}`, { method: "POST" });
-    fetchRequests();
+    try {
+      const response = await fetch(`${API_BASE_URL}/reopen-request/${id}`, { method: "POST" });
+      if (!response.ok) throw new Error("Failed to reopen request.");
+      fetchRequests();
+    } catch (error) {
+      console.error("Error reopening request:", error);
+    }
   };
 
   const deleteRequest = async (id: number) => {
     if (confirmDelete !== id) return;
-    await fetch(`http://localhost:3001/api/closed-requests/${id}`, { method: "DELETE" });
-    setConfirmDelete(null);
-    fetchRequests();
+    try {
+      const response = await fetch(`${API_BASE_URL}/closed-requests/${id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Failed to delete request.");
+      setConfirmDelete(null);
+      fetchRequests();
+    } catch (error) {
+      console.error("Error deleting request:", error);
+    }
   };
 
   if (!isAuthenticated) {
