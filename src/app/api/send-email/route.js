@@ -2,7 +2,7 @@ import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function POST(request) {
   try {
@@ -16,7 +16,7 @@ export async function POST(request) {
     }
 
     // 1️⃣ Store Request in deepnorth-requests
-    const dbResponse = await fetch("http://localhost:3001/api/requests", {
+    const dbResponse = await fetch("https://api.deepnorth.app/api/requests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, media, title, author, mediaLink }),
