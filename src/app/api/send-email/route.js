@@ -2,18 +2,15 @@ import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const config = {
-  api: {
-    bodyParser: true, // ✅ Re-enable JSON body parsing
-  },
-};
-
 export async function POST(request) {
   try {
     const { name, media, title, author, mediaLink } = await request.json();
 
     if (!name || !media || !title || !mediaLink) {
-      return new Response("Missing required fields", { status: 400 });
+      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // 1️⃣ Store Request in deepnorth-requests
@@ -25,7 +22,10 @@ export async function POST(request) {
 
     if (!dbResponse.ok) {
       console.error("Error storing request in deepnorth-requests:", await dbResponse.text());
-      return new Response("Error saving request to database", { status: 500 });
+      return new Response(JSON.stringify({ error: "Error saving request to database" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // 2️⃣ Send Email Notification
@@ -44,9 +44,15 @@ export async function POST(request) {
     };
 
     await sgMail.send(msg);
-    return new Response("Request submitted successfully", { status: 200 });
+    return new Response(JSON.stringify({ message: "Request submitted successfully" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("SendGrid API error:", error);
-    return new Response("Error sending email", { status: 500 });
+    return new Response(JSON.stringify({ error: "Error sending email" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
