@@ -2,7 +2,7 @@ import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export async function POST(request) {
   try {
