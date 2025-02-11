@@ -1,49 +1,44 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Import for navigation
+import { useRouter } from "next/navigation";
 
 export default function RequestsPage() {
   const router = useRouter();
   const [selectedMedia, setSelectedMedia] = useState<string>("");
   const [mediaLink, setMediaLink] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
-  const [status, setStatus] = useState<string>("");
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setImage(file);
-    }
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus("Sending...");
 
     const formData = new FormData(event.target as HTMLFormElement);
-
-    const data = {
-      name: formData.get("name"),
-      media: selectedMedia,
-      title: formData.get("title"),
-      author: formData.get("author"),
-      mediaLink,
-      image: image ? image.name : "",
-    };
+    formData.append("media", selectedMedia);
 
     try {
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(Object.fromEntries(formData)),
       });
 
-      setStatus(response.ok ? "Request submitted successfully!" : "Failed to submit request.");
+      if (response.ok) {
+        setShowSuccessModal(true); // ✅ Show success modal
+      } else {
+        alert("Failed to submit request."); // Show error message
+      }
     } catch (error) {
       console.error("Error:", error);
-      setStatus("Failed to submit request.");
+      alert("Failed to submit request.");
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowSuccessModal(false);
+    // ✅ Reset form fields
+    setSelectedMedia("");
+    setMediaLink("");
+    (document.getElementById("request-form") as HTMLFormElement)?.reset(); // ✅ Fix TypeScript reset error
   };
 
   return (
@@ -56,7 +51,6 @@ export default function RequestsPage() {
         </a>
       </p>
 
-      {/* View Current Requests Button */}
       <button
         onClick={() => router.push("/requests/view")}
         className="mt-6 px-6 py-2 text-lg bg-blue-500 hover:bg-blue-600 text-white rounded-md"
@@ -64,7 +58,8 @@ export default function RequestsPage() {
         View Current Requests
       </button>
 
-      <form onSubmit={handleSubmit} className="mt-6 w-full max-w-lg space-y-4">
+      {/* ✅ Add form ID for reset functionality */}
+      <form id="request-form" onSubmit={handleSubmit} className="mt-6 w-full max-w-lg space-y-4">
         {/* Name Field */}
         <div>
           <label htmlFor="name" className="block text-lg font-semibold">
@@ -90,6 +85,7 @@ export default function RequestsPage() {
                   id={type}
                   name="media"
                   value={type}
+                  checked={selectedMedia === type}
                   onChange={(e) => setSelectedMedia(e.target.value)}
                   className="mr-2"
                   required
@@ -140,24 +136,6 @@ export default function RequestsPage() {
           />
         </div>
 
-        {/* Image Upload */}
-        <div>
-          <label htmlFor="screenshot" className="block text-lg font-semibold">Upload Screenshot or Image (Optional)</label>
-          <input
-            type="file"
-            id="screenshot"
-            name="screenshot"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="w-full mt-2 p-2 border border-gray-300 rounded-md"
-          />
-          {image && (
-            <div className="mt-2 text-sm text-gray-500">
-              <p>Uploaded Image: {image.name}</p>
-            </div>
-          )}
-        </div>
-
         {/* Submit Button */}
         <div>
           <button
@@ -169,7 +147,21 @@ export default function RequestsPage() {
         </div>
       </form>
 
-      {status && <p className="mt-4 text-lg">{status}</p>}
+      {/* ✅ Success Modal with Black Text */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center text-black">
+            <h2 className="text-xl font-bold mb-4">Request Submitted</h2>
+            <p>Your request has been successfully submitted!</p>
+            <button
+              onClick={handleCloseModal}
+              className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

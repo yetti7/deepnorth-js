@@ -22,8 +22,8 @@ export default function RequestsViewPage() {
   const fetchRequests = async () => {
     try {
       const [openRes, closedRes] = await Promise.all([
-        fetch("http://localhost:3001/api/requests"),
-        fetch("http://localhost:3001/api/closed-requests"),
+        fetch("https://api.deepnorth.app/api/requests"),
+        fetch("https://api.deepnorth.app/api/closed-requests"),
       ]);
 
       if (!openRes.ok || !closedRes.ok) {
