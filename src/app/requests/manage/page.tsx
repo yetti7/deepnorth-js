@@ -3,15 +3,15 @@
 import { useState, useEffect } from "react";
 import RequestsPagination from "@/components/RequestsPagination"; // Import pagination component
 
-const ADMIN_PASSWORD = "1988"; // Change this!
+const ADMIN_PASSWORD = "1988"; // Admin page password
 
 interface Request {
-  id: number;
-  name: string;
-  media: string;
-  title: string;
-  author?: string | null;
-  mediaLink: string;
+  id: number; // sqlite id 
+  name: string; // requestor name
+  media: string; // media type ie ebook, audiobook, tv, movie
+  title: string; //title of media
+  author?: string | null; // only populates on ebook and audiobook
+  mediaLink: string; // required link to media for quick searching on web
 }
 
 export default function RequestsManagePage() {
@@ -26,14 +26,12 @@ export default function RequestsManagePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [mediaFilter, setMediaFilter] = useState("");
 
- // Search state
-
   // Pagination state
   const [openPage, setOpenPage] = useState(1);
   const [closedPage, setClosedPage] = useState(1);
   const [requestsPerPage, setRequestsPerPage] = useState(5);
 
-  const API_BASE_URL = "https://api.deepnorth.app/api"; // ✅ Centralized API base URL
+  const API_BASE_URL = "https://api.deepnorth.app/api"; // Centralized API base URL
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
