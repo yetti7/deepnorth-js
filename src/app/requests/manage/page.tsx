@@ -28,7 +28,6 @@ export default function RequestsManagePage() {
   //  UI State
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
 
   //  Filtering & Search State
   const [searchQuery, setSearchQuery] = useState("");
@@ -153,16 +152,15 @@ const handleLogin = (e: React.FormEvent) => {
   };
 
   const deleteRequest = async (id: number) => {
-    if (confirmDelete !== id) return;
     try {
+      console.log(`🗑️ Attempting to delete request ID: ${id}`);
       const response = await fetch(`${API_BASE_URL}/closed-requests/${id}`, { method: "DELETE" });
       if (!response.ok) throw new Error("Failed to delete request.");
-      setConfirmDelete(null);
       fetchRequests();
     } catch (error) {
-      console.error("Error deleting request:", error);
+      console.error("❌ Error deleting request:", error);
     }
-  };
+};
 
   if (!isAuthenticated) {
     return (
