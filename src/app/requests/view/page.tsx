@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import RequestsPagination from "@/components/RequestsPagination"; // Import the pagination component
-
+import RequestItem from "@/components/RequestItem";
 interface Request {
   id: number;
   name: string;
@@ -12,6 +12,7 @@ interface Request {
   mediaLink: string;
   image?: string;
   closed_at?: string; // Added for closed requests
+  status: string
 }
 
 export default function RequestsViewPage() {
@@ -33,14 +34,17 @@ export default function RequestsViewPage() {
         fetch("https://api.deepnorth.app/api/requests"),
         fetch("https://api.deepnorth.app/api/closed-requests"),
       ]);
-
+  
       if (!openRes.ok || !closedRes.ok) {
         throw new Error("Failed to fetch requests.");
       }
-
+  
       const openData = await openRes.json();
       const closedData = await closedRes.json();
-
+  
+      console.log("🟢 Open Requests:", openData); // ✅ Debug log
+      console.log("🔴 Closed Requests:", closedData); // ✅ Debug log
+  
       setOpenRequests(openData);
       setClosedRequests(closedData);
     } catch (err) {
@@ -109,9 +113,9 @@ export default function RequestsViewPage() {
           className="p-2 border rounded text-black"
         >
           <option value="">All Media</option>
-          <option value="Book">Book</option>
+          <option value="eBook">eBook</option>
           <option value="Audiobook">Audiobook</option>
-          <option value="TV Show">TV Show</option>
+          <option value="TV">TV Show</option>
           <option value="Movie">Movie</option>
         </select>
         <button onClick={resetFilters} className="p-2 bg-red-500 text-black rounded">
@@ -124,11 +128,11 @@ export default function RequestsViewPage() {
           <ul className="space-y-3 font-[Arial,sans-serif]">
             {displayedOpenRequests.length > 0 ? (
               displayedOpenRequests.map((req) => (
-                <li key={req.id} className="border border-gray-700 p-3 rounded-md bg-gray-800 text-white">
-                  <p className="font-bold">{req.title} ({req.media}) - Requested by {req.name}</p>
-                  {req.author && <p>Author: {req.author}</p>}
-                  <a href={req.mediaLink} target="_blank" className="text-blue-400 hover:underline">View Request</a>
-                </li>
+                <RequestItem 
+                  key={req.id} 
+                  req={req} 
+                  readOnly={true} // ✅ View page should be read-only
+                />
               ))
             ) : (
               <p className="text-center text-gray-400">No open requests.</p>
@@ -141,11 +145,11 @@ export default function RequestsViewPage() {
           <ul className="space-y-3 font-[Arial,sans-serif]">
             {displayedClosedRequests.length > 0 ? (
               displayedClosedRequests.map((req) => (
-                <li key={req.id} className="border border-gray-700 p-3 rounded-md bg-gray-800 text-white">
-                  <p className="font-bold">{req.title} ({req.media}) - Requested by {req.name}</p>
-                  {req.author && <p>Author: {req.author}</p>}
-                  <p className="text-sm text-gray-400">Closed on {new Date(req.closed_at || "").toLocaleDateString()}</p>
-                </li>
+                <RequestItem 
+                  key={req.id} 
+                  req={req} 
+                  readOnly={true} // ✅ View page should be read-only
+                />
               ))
             ) : (
               <p className="text-center text-gray-400">No closed requests.</p>

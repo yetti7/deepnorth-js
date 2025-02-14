@@ -1,7 +1,36 @@
 export const runtime = 'edge'; // Use Edge runtime
 
 export async function POST(request) {
-  const { name, media, title, author, mediaLink } = await request.json();
+  const requestData = await request.json();
+
+  // ✅ Step 1: Check if this is a status update
+  if (requestData.id && requestData.status) {
+    try {
+      const statusToUpdate = requestData.status.trim() !== "" ? requestData.status : "Pending"; // Default to Pending
+      const updateResponse = await fetch("https://api.deepnorth.app/api/update-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: requestData.id, status: statusToUpdate }),
+      });
+  
+      if (!updateResponse.ok) {
+        console.error("Error updating status:", await updateResponse.text());
+        return new Response(JSON.stringify({ error: "Failed to update request status" }), { status: 500 });
+      }
+  
+      return new Response(JSON.stringify({ message: "Request status updated successfully" }), { 
+        status: 200, 
+        headers: { "Content-Type": "application/json" } 
+      });
+  
+    } catch (error) {
+      console.error("Error updating request status:", error);
+      return new Response(JSON.stringify({ error: "Database error while updating status" }), { status: 500 });
+    }
+  }
+
+  // ✅ Step 2: Handle new request submissions (Existing logic)
+  const { name, media, title, author, mediaLink } = requestData;
 
   if (!name || !media || !title || !mediaLink) {
     return new Response(JSON.stringify({ error: "Missing required fields" }), {
