@@ -45,10 +45,7 @@ export default function RequestsPage() {
     <main className="flex flex-col items-center justify-center h-screen text-center px-4 sm:px-8 md:px-16">
       <h1 className="text-4xl font-bold">Requests</h1>
       <p className="text-lg mt-4">
-        Fill out the form below or submit your requests directly to{" "}
-        <a href="mailto:requests@deepnorth.app" className="text-blue-400 hover:underline">
-          requests@deepnorth.app
-        </a>
+        Fill out the form below
       </p>
 
       <button

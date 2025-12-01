@@ -32,9 +32,6 @@ const NavBar = () => {
         <Link href="/" className={styles.navLink} onClick={() => setIsOpen(false)}>
           Home
         </Link>
-        <Link href="/apps" className={styles.navLink} onClick={() => setIsOpen(false)}>
-          Apps
-        </Link>
         <Link href="/requests" className={styles.navLink} onClick={() => setIsOpen(false)}>
           Requests
         </Link>
