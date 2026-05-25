@@ -11,6 +11,7 @@ export default function Home() {
             alt="Yeti Logo"
             width={600} 
             height={600}
+            loading="eager"
           />
         </a>
       </div>
