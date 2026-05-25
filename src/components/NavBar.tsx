@@ -20,7 +20,6 @@ const NavBar = () => {
     // Preload important routes for a better UX
     router.prefetch("/");
     router.prefetch("/apps");
-    router.prefetch("/requests");
   }, [router]);
 
   return (
@@ -32,9 +31,15 @@ const NavBar = () => {
         <Link href="/" className={styles.navLink} onClick={() => setIsOpen(false)}>
           Home
         </Link>
-        <Link href="/requests" className={styles.navLink} onClick={() => setIsOpen(false)}>
-          Requests
-        </Link>
+        <a
+          href="https://releases.deepnorth.app"
+          className={styles.navLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setIsOpen(false)}
+        >
+          Releases
+        </a>
       </div>
       <div
         className={`${styles.hamburger} ${isOpen ? styles.openHamburger : ""}`}
