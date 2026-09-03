@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'RichTheBarber';
+  src: url('fonts/RichTheBarber.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  color-scheme: light dark;
+  color: #263943;
+  background: linear-gradient(145deg, #e9eef0, #cbd8df);
+  font-family: 'RichTheBarber', Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #e6edf0;
+    background: linear-gradient(145deg, #293b47, #14222d);
+  }
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logo {
+  /* Preserve the original image width and horizontal offset. */
+  width: 623px;
+  max-width: 100%;
+}
+
+.branding {
+  position: relative;
+  container-type: inline-size;
+  width: 90%;
+  margin-left: 23px;
+}
+
+.branding img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Hide the embedded lettering without changing the Yeti artwork. */
+  clip-path: inset(0 0 14%);
+}
+
+h1 {
+  position: absolute;
+  top: 87%;
+  left: 50%;
+  width: max-content;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: 10.3cqw;
+  font-weight: normal;
+  line-height: 1;
+}
